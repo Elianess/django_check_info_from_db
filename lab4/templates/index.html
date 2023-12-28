@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            form {
+                max-width: 300px;
+                margin: 0 auto;
+                text-align: center;
+                font-family: Calibri, sans-serif;
+                border-radius: 10px;
+                padding: 10px;
+            }
+    
+            input, textarea {
+                padding: 0.5rem;
+                width: 100%;
+                border-radius: 5px;
+                border: 1px solid #ccc;
+                opacity: 0.9;
+                margin-bottom: 15px;
+                }
+
+            
+            button {
+                background: #3740ff;
+                color: #fff;
+                border: none;
+                padding: 0.4rem;
+                border-radius: 5px;
+                font-family: Calibri, sans-serif;
+                }
+    
+            button:hover,
+            button:focus {
+                background: #272eb5;
+            }
+            
+            #book-info h2 {
+                text-indent: 500px;
+                font-family: Calibri, sans-serif;
+            }
+            
+            #book-info p {
+                text-indent: 500px;
+                font-family: Calibri, sans-serif;
+            } 
+        </style>
+    
+    </head>
+    <body>
+        <form method="GET" action="{% url 'index' %}">
+            <div>
+                <h2 style="font-weight: bold; opacity: 0.7;">Library</h2> 
+            </div>
+            
+            <div>
+                <input type="text" id="id_book" name="id_book" placeholder="Enter book id" required > 
+            </div>
+
+            <div>
+                <button id = 'butt' type="submit">Show info</button>
+            </div>
+        </form>
+        <div id="book-info">
+            {% if book %}   
+                <h2>Book info:</h2>
+                <p>Id: {{ book.id_book }}</p>
+                <p>Title book: {{ book.title }}</p>
+            {% else %}
+                <p id = 'tex' style="text-indent: 540px; color: red">The book with this ID was not found.</p>
+            {% endif %}
+        </div>
+        <!-- <h2>Или выберите книгу из списка:</h2>
+        <ul>
+            {% for book in books %}
+                <li><a href="{% url 'index' %}?id_book={{ book.id_book }}">{{ book.id_book }}</a></li>
+            {% endfor %}
+        </ul> -->
+        <script>
+            let elem_one = document.getElementById('tex');
+            let elem_two = document.getElementById('butt');
+
+            if (location.pathname == '/') 
+                elem_one.style.opacity = 0;
+
+            elem_two.addEventListener('click', () => {
+                if (location.pathname == '/') 
+                    elem_one.style.opacity = 0;
+                else
+                    elem_one.style.opacity = 1;
+            })
+        </script>
+    </body>
+</html>
